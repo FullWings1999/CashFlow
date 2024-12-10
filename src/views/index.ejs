@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id="app">
+      {{ buyItems }}
+      <table v-bind:style="{width:'100%',textAlign:'center'}">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="product in products">
+            <td>{{ product.id }}</td>
+            <td>{{ product.name}}</td>
+            <td>{{ product.amount}}</td>
+            <td>{{ product.price}}</td>
+            <td>{{ product.description }}</td>    
+            <td><input v-model="buyItems[product.id]" type="number" min="0" max="100" step="1" name=""></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <button @click="ECPay">綠界支付</button>
+        <div id="paypal-area"></div>
+      </div>
+      <div id="ecpay" v-html="ecpayHtml"></div>
+    </div>
+  </body>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=<%= pay_pal_client_id %>"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script type="importmap">
+    { "imports": { "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js" } }
+  </script>
+  <script type="module" src="/javascripts/index.js">  </script>
+  
+</html>
